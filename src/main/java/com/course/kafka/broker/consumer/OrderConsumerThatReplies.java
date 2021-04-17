@@ -23,10 +23,13 @@ public class OrderConsumerThatReplies
         double surpriseBonusAmount = surpriseBonusPercentage * message.getPrice() * message.getQuantity() / 100.0;
         log.info("Surprise bonus amount for location {} is: {}", message.getOrderLocation(), surpriseBonusAmount);
 
+        String replyMessage = "Bonus processed for orderNumber: " + message.getOrderNumber() + " at location: " +
+                          message.getOrderLocation() + ", " + "bonusPercentage: " + surpriseBonusPercentage +
+                          ", bonusAmount: " + surpriseBonusAmount;
+        log.info("Replying: {}", replyMessage);
+
         return OrderReplyMessage.builder()
-                                .message("Bonus processed for orderNumber: " + message.getOrderNumber() + " at location: " +
-                                         message.getOrderLocation() + ", " + "bonusPercentage: " + surpriseBonusPercentage +
-                                         ", bonusAmount: " + surpriseBonusAmount)
+                                .replyMessage(replyMessage)
                                 .build();
     }
 }
